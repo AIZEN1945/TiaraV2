@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Untuk Tiara Amelia ✨</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@500;700&family=Sacramento&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+    <style>
+        :root {
+            --soft-brown: #caa052; 
+            --mocha: #d7ccc8;
+            --dark-coffee: #ce8a3c;
+            --cream: #fff9f0;
+        }
+
+        * { 
+            font-family: 'Quicksand', sans-serif; 
+            box-sizing: border-box; 
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            background: linear-gradient(135deg, #efebe9 0%, #d7ccc8 100%);
+            margin: 0;
+            padding: 10px;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Container Utama */
+        .container {
+            background: rgba(255, 249, 240, 0.95);
+            backdrop-filter: blur(10px);
+            width: 100%;
+            max-width: 400px;
+            min-height: 600px;
+            padding: 25px;
+            border-radius: 35px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.8);
+            position: relative;
+            z-index: 2;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .page { transition: all 0.5s ease; width: 100%; }
+        .hidden { display: none !important; opacity: 0; }
+
+        /* Musik & Judul Lagu */
+        #music-ctrl {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: white;
+            padding: 5px 15px;
+            border-radius: 25px;
+            display: none;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            z-index: 1000;
+            border: 2px solid var(--mocha);
+        }
+        #song-title { font-size: 10px; color: var(--dark-coffee); font-weight: bold; white-space: nowrap; overflow: hidden; max-width: 100px; text-overflow: ellipsis; }
+
+        h1 { font-family: 'Sacramento', cursive; font-size: 2.5rem; color: var(--dark-coffee); margin: 10px 0; }
+        
+        input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 15px;
+            border: 2px solid var(--mocha);
+            background: white;
+            margin: 10px 0;
+            outline: none;
+            text-align: center;
+            font-size: 16px;
+        }
+
+        .btn-group { display: flex; gap: 10px; justify-content: center; margin-top: 15px; flex-wrap: wrap; }
+
+        button {
+            background: var(--dark-coffee);
+            color: white; border: none;
+            padding: 10px 20px; border-radius: 12px;
+            font-weight: 700; cursor: pointer; transition: 0.3s;
+        }
+        button.secondary { background: var(--mocha); color: #5d4037; }
+
+        /* Carousel */
+        .deck-container {
+            position: relative;
+            height: 280px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1000px;
+        }
+        .menu-card {
+            position: absolute;
+            width: 125px; height: 180px;
+            background: var(--dark-coffee); color: white;
+            border-radius: 20px; display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            padding: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border: 3px solid #fff; transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+            cursor: pointer; transform-origin: center bottom;
+        }
+        .c1 { transform: translateX(-95px) rotate(-15deg); z-index: 1; }
+        .c2 { transform: translateX(-35px) rotate(-5deg); z-index: 2; }
+        .c3 { transform: translateX(35px) rotate(5deg); z-index: 3; }
+        .c4 { transform: translateX(95px) rotate(15deg); z-index: 4; }
+        .menu-card.focused { transform: translate(0, -35px) scale(1.3) rotate(0deg) !important; z-index: 100 !important; background: var(--soft-brown); }
+
+        /* Game Grid */
+        .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 20px; }
+        .card { aspect-ratio: 1/1; background: var(--mocha); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 28px; cursor: pointer; color: transparent; transition: 0.4s; }
+        .card.flipped { background: #fff; color: var(--dark-coffee); transform: rotateY(180deg); border: 2px solid var(--dark-coffee); }
+
+        .photo-frame { width: 100%; max-height: 200px; object-fit: cover; border-radius: 15px; border: 5px solid white; margin-bottom: 15px; }
+        .message { font-size: 0.85rem; line-height: 1.6; color: #8d6e63; text-align: left; font-style: italic; }
+        .err-msg { color: #d32f2f; font-size: 12px; margin-top: 5px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <div id="music-ctrl" onclick="toggleMusic()">
+        <span id="song-title">Lagu - Raisa (Serba Salah)</span>
+        <div id="mu-icon">🎵</div>
+    </div>
+
+    <audio id="bgMusic" loop>
+        <source src="lagu.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="container">
+        <div id="page1" class="page">
+            <h1>Halo Tiaraa ✨</h1>
+            <p style="font-size: 13px; color: #8d6e63;">Masukan password ulang tahun pembuat</p>
+            <input type="password" id="pass" placeholder="Password (DDMMYYYY)">
+            <button onclick="login()">Buka Halaman</button>
+        </div>
+
+        <div id="page-game" class="page hidden">
+            <h2 style="color: var(--dark-coffee); margin:0;">Mini Game 🧩</h2>
+            <p style="font-size: 11px;">Cocokkan 3 pasang gambar</p>
+            <div class="grid" id="game-board"></div>
+        </div>
+
+        <div id="deck-menu" class="page hidden">
+            <h2 style="color: var(--dark-coffee); margin:0;">Main Menu 💌</h2>
+            <div class="deck-container">
+                <div class="menu-card c1" onclick="handleCardClick(this, 'page-content1')"><b>Ceritaku</b></div>
+                <div class="menu-card c2" onclick="handleCardClick(this, 'page-content2')"><b>Pesan</b></div>
+                <div class="menu-card c3" onclick="handleCardClick(this, 'page-content3')"><b>Momen</b></div>
+                <div class="menu-card c4" onclick="handleCardClick(this, 'page-special-pass')"><b>Spesial</b></div>
+            </div>
+            <button class="secondary" onclick="transition('deck-menu', 'page1')">Keluar / Log Out</button>
+        </div>
+
+        <div id="page-special-pass" class="page hidden">
+            <h1>Halaman Spesial 🔒</h1>
+            <p style="font-size: 13px; color: #8d6e63;">Halaman ini terkunci, masukan password spesial</p>
+            <input type="password" id="passSpecialInput" placeholder="Password Spesial">
+            <p id="errorSpecial" class="err-msg hidden">tanggal perpisahan</p>
+            <div class="btn-group">
+                <button class="secondary" onclick="transition('page-special-pass', 'deck-menu')">Kembali</button>
+                <button onclick="checkSpecialPass()">Buka</button>
+            </div>
+        </div>
+
+        <div id="page-content1" class="page hidden">
+            <h1>Ceritaku</h1>
+            <img src="foto1.jpeg" class="photo-frame">
+            <p id="type1" class="message"></p>
+            <div class="btn-group">
+                <button class="secondary" onclick="backToMenu('page-content1')">Menu</button>
+                <button onclick="nav('page-content1', 'page-content2')">Next ➔</button>
+            </div>
+        </div>
+
+        <div id="page-content2" class="page hidden">
+            <h1>Pesan Untukmu</h1>
+            <img src="foto2.jpeg" class="photo-frame">
+            <p id="type2" class="message"></p>
+            <div class="btn-group">
+                <button onclick="nav('page-content2', 'page-content1')">⬅ Back</button>
+                <button class="secondary" onclick="backToMenu('page-content2')">Menu</button>
+                <button onclick="nav('page-content2', 'page-content3')">Next ➔</button>
+            </div>
+        </div>
+
+        <div id="page-content3" class="page hidden">
+            <h1>Wall of Fame</h1>
+            <img src="foto3.jpeg" class="photo-frame">
+            <p id="type3" class="message"></p>
+            <div class="btn-group">
+                <button onclick="nav('page-content3', 'page-content2')">⬅ Back</button>
+                <button class="secondary" onclick="backToMenu('page-content3')">Menu</button>
+                <button onclick="transition('page-content3', 'page-special-pass')">Next ➔</button>
+            </div>
+        </div>
+
+        <div id="page-special-content" class="page hidden">
+            <h1>Spesial Untukmu ✨</h1>
+            <div style="background: white; padding: 20px; border-radius: 20px; border: 2px dashed var(--mocha);">
+                <p style="color: var(--dark-coffee);">Yeay! Kamu berhasil masuk.<br>Halaman rahasia ini khusus buat kamu.</p>
+            </div>
+            <button class="secondary" style="margin-top:20px" onclick="backToMenu('page-special-content')">Kembali Ke Menu</button>
+        </div>
+    </div>
+
+    <script>
+        const PASS_MAIN = "09122010";
+        const PASS_SPECIAL = "06062026";
+        const music = document.getElementById('bgMusic');
+        let typeTimeouts = [];
+
+        const texts = {
+            type1: "TIRRRR, ALOOOO kamu pasti liat ini kan mwhehwhe selain kamu gada yg bisa liat yapss jujur aku baru memperhatiin kamu saat kelas 8 atau kelas 9? pokoknya saat aku dan kamu jadi ketertiban apalah itu, ya sampe sekarang masih ada rasa (bukan rasa aceh ya mie pula nanti jadinya) satu satunya temen perempuan yang ku ceritain ke orang tua ku kamu doangg, nyanyi enak,kalo kerkel ya enakk, tapi yang penting ilangin rasa gapede yakk. di kelas 9 ini yang menjadi motivasi ku untuk berubah ya kamu, kayak nilai mu lebih tinggi dari pada aku atau apapun itu aku berusaha untuk lebih dari itu hehe.... sama lukisan mu itu bagus banget tutor dong hehe. yaa gitu makasih dah mau baca nextt aja yak",
+            type2: "Ingat ya Tir, kalau nanti di SMA/SMK kamu ngerasa capek atau ngerasa nggak pede lagi, inget aja aku karena akuu selalu pede yaps. tapi semenjak kmu juara 1 ada perubahan kuliat-liat, yang penting do it and complain less",
+            type3: "Makasih ya udah mau nemenin masa-masa kelas 9 jadi lebih indah. Sukses di SMA/SMK nanti, jangan lupain kenangan kita! OKEEEE???!!"
+        };
+
+        function toggleMusic() {
+            if (music.paused) { music.play(); document.getElementById('mu-icon').innerHTML = "🎵"; } 
+            else { music.pause(); document.getElementById('mu-icon').innerHTML = "🔇"; }
+        }
+
+        function login() {
+            if(document.getElementById('pass').value === PASS_MAIN) {
+                music.play(); document.getElementById('music-ctrl').style.display = 'flex';
+                transition('page1', 'page-game'); initGame();
+            } else { alert("Password salah!"); }
+        }
+
+        function checkSpecialPass() {
+            const input = document.getElementById('passSpecialInput').value;
+            if(input === PASS_SPECIAL) {
+                document.getElementById('errorSpecial').classList.add('hidden');
+                transition('page-special-pass', 'page-special-content');
+                confetti();
+            } else {
+                document.getElementById('errorSpecial').classList.remove('hidden');
+            }
+        }
+
+        function handleCardClick(card, pageId) {
+            if(card.classList.contains('focused')) {
+                transition('deck-menu', pageId);
+                startTyping(pageId);
+            } else {
+                document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('focused'));
+                card.classList.add('focused');
+            }
+        }
+
+        function nav(curr, next) {
+            transition(curr, next);
+            startTyping(next);
+        }
+
+        function startTyping(pageId) {
+            if(pageId === 'page-content1') setTimeout(() => typeWriter('type1', texts.type1), 600);
+            if(pageId === 'page-content2') setTimeout(() => typeWriter('type2', texts.type2), 600);
+            if(pageId === 'page-content3') setTimeout(() => typeWriter('type3', texts.type3), 600);
+        }
+
+        function transition(oldId, nextId) {
+            document.getElementById(oldId).classList.add('hidden');
+            setTimeout(() => { document.getElementById(nextId).classList.remove('hidden'); }, 400);
+        }
+
+        function backToMenu(currentId) {
+            transition(currentId, 'deck-menu');
+            document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('focused'));
+            typeTimeouts.forEach(clearTimeout);
+            document.getElementById('passSpecialInput').value = "";
+        }
+
+        function typeWriter(elementId, text) {
+            let i = 0; const element = document.getElementById(elementId);
+            element.innerHTML = ""; typeTimeouts.forEach(clearTimeout);
+            function type() {
+                if (i < text.length) { element.innerHTML += text.charAt(i); i++; typeTimeouts.push(setTimeout(type, 30)); }
+            }
+            type();
+        }
+
+        function initGame() {
+            const items = ['🎤', '💻', '📖', '🎤', '💻', '📖'];
+            const board = document.getElementById('game-board');
+            let flipped = []; let matched = 0;
+            board.innerHTML = ""; items.sort(() => 0.5 - Math.random());
+            items.forEach(item => {
+                const card = document.createElement('div');
+                card.className = 'card'; card.innerHTML = item;
+                card.onclick = () => {
+                    if(flipped.length < 2 && !card.classList.contains('flipped')) {
+                        card.classList.add('flipped'); flipped.push(card);
+                        if(flipped.length === 2) {
+                            setTimeout(() => {
+                                if(flipped[0].innerHTML === flipped[1].innerHTML) {
+                                    matched++; if(matched === 3) { confetti(); setTimeout(() => transition('page-game', 'deck-menu'), 1000); }
+                                } else { flipped.forEach(c => c.classList.remove('flipped')); }
+                                flipped = [];
+                            }, 500);
+                        }
+                    }
+                };
+                board.appendChild(card);
+            });
+        }
+    </script>
+</body>
+</html>
