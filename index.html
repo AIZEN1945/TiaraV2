@@ -8,29 +8,31 @@
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
     <style>
         :root {
-            --rose: #c97b6e;
-            --rose-light: #f0cbc5;
-            --rose-dark: #a05a4f;
-            --gold: #c9a96e;
-            --gold-light: #f5e6cc;
-            --gold-dark: #9a7840;
-            --cream: #fdf8f3;
-            --warm: #f7efe6;
-            --brown: #6b4c3b;
-            --brown-light: #a07060;
-            --text: #3d2b22;
-            --text-muted: #9a7060;
+            --rose: #c4956a;
+            --rose-light: #eddcca;
+            --rose-dark: #8b6245;
+            --gold: #d4a96a;
+            --gold-light: #f0e0c4;
+            --gold-dark: #8a6835;
+            --cream: #fdf6ee;
+            --warm: #f8f0e6;
+            --brown: #5c3d2e;
+            --brown-light: #9a7055;
+            --text: #3a2415;
+            --text-muted: #8a6a50;
             --white: #ffffff;
-            --card-bg: rgba(253,248,243,0.97);
-            --shadow: 0 8px 40px rgba(80,40,20,0.13);
-            --shadow-sm: 0 2px 12px rgba(80,40,20,0.08);
+            --card-bg: rgba(253,246,238,0.97);
+            --shadow: 0 8px 40px rgba(60,30,10,0.13);
+            --shadow-sm: 0 2px 12px rgba(60,30,10,0.08);
+            --bg1: #e8d5be;
+            --bg2: #d4bc9e;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; margin: 0; padding: 0; }
 
         body {
             font-family: 'DM Sans', sans-serif;
-            background: #ecddd4;
+            background: linear-gradient(135deg, var(--bg1) 0%, var(--bg2) 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
@@ -45,33 +47,11 @@
             position: fixed;
             inset: 0;
             background:
-                radial-gradient(ellipse 60% 40% at 10% 20%, rgba(201,123,110,0.18) 0%, transparent 70%),
-                radial-gradient(ellipse 50% 60% at 90% 80%, rgba(201,169,110,0.16) 0%, transparent 70%),
-                radial-gradient(ellipse 40% 40% at 80% 10%, rgba(201,123,110,0.10) 0%, transparent 70%);
+                radial-gradient(ellipse 60% 40% at 10% 20%, rgba(180,130,80,0.2) 0%, transparent 70%),
+                radial-gradient(ellipse 50% 60% at 90% 80%, rgba(200,160,100,0.18) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 40% at 80% 10%, rgba(180,130,80,0.12) 0%, transparent 70%);
             pointer-events: none;
             z-index: 0;
-        }
-
-        .petal {
-            position: fixed;
-            width: 10px; height: 14px;
-            border-radius: 50% 0 50% 0;
-            opacity: 0;
-            pointer-events: none;
-            z-index: 0;
-            animation: floatPetal 8s infinite ease-in-out;
-        }
-        .petal:nth-child(1) { left: 10%; background: rgba(201,123,110,0.4); animation-delay: 0s; animation-duration: 9s; }
-        .petal:nth-child(2) { left: 25%; background: rgba(201,169,110,0.35); animation-delay: 2s; animation-duration: 7s; }
-        .petal:nth-child(3) { left: 55%; background: rgba(201,123,110,0.3); animation-delay: 4s; animation-duration: 10s; }
-        .petal:nth-child(4) { left: 75%; background: rgba(201,169,110,0.35); animation-delay: 1s; animation-duration: 8s; }
-        .petal:nth-child(5) { left: 88%; background: rgba(201,123,110,0.25); animation-delay: 3s; animation-duration: 11s; }
-
-        @keyframes floatPetal {
-            0% { top: -5%; opacity: 0; transform: translateX(0) rotate(0deg); }
-            10% { opacity: 0.7; }
-            90% { opacity: 0.4; }
-            100% { top: 105%; opacity: 0; transform: translateX(40px) rotate(180deg); }
         }
 
         #music-ctrl {
@@ -155,7 +135,7 @@
             color: var(--text);
             transition: border-color 0.2s, box-shadow 0.2s;
         }
-        input:focus { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(201,123,110,0.12); }
+        input:focus { border-color: var(--rose); box-shadow: 0 0 0 3px rgba(196,149,106,0.14); }
 
         .btn {
             display: inline-flex;
@@ -175,9 +155,9 @@
         .btn-primary {
             background: linear-gradient(135deg, var(--rose) 0%, var(--rose-dark) 100%);
             color: white;
-            box-shadow: 0 4px 14px rgba(160,90,79,0.3);
+            box-shadow: 0 4px 14px rgba(139,98,69,0.3);
         }
-        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(160,90,79,0.35); }
+        .btn-primary:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(139,98,69,0.38); }
         .btn-primary:active { transform: translateY(0); }
         .btn-secondary {
             background: var(--warm);
@@ -188,9 +168,9 @@
         .btn-gold {
             background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
             color: white;
-            box-shadow: 0 4px 14px rgba(154,120,64,0.3);
+            box-shadow: 0 4px 14px rgba(138,104,53,0.3);
         }
-        .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(154,120,64,0.35); }
+        .btn-gold:hover { transform: translateY(-1px); box-shadow: 0 6px 18px rgba(138,104,53,0.38); }
         .btn-skip {
             background: transparent;
             color: var(--text-muted);
@@ -213,18 +193,36 @@
             font-size: 11.5px;
             margin-top: 6px;
             font-style: italic;
-            background: rgba(201,123,110,0.1);
+            background: rgba(196,149,106,0.12);
             padding: 6px 12px;
             border-radius: 8px;
         }
 
-        .lock-icon {
-            font-size: 38px;
+        .main-icon {
+            font-size: 44px;
             margin-bottom: 8px;
             display: block;
-            animation: pulse 2s infinite ease-in-out;
+            animation: pulse 2.5s infinite ease-in-out;
         }
-        @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.07)} }
+        @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.08)} }
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            gap: 6px;
+            margin: 8px 0 4px;
+        }
+        .star {
+            width: 6px; height: 6px;
+            background: var(--rose-light);
+            border-radius: 50%;
+            animation: twinkle 1.8s infinite ease-in-out;
+        }
+        .star:nth-child(2) { animation-delay: 0.3s; background: var(--gold-light); }
+        .star:nth-child(3) { animation-delay: 0.6s; }
+        .star:nth-child(4) { animation-delay: 0.9s; background: var(--gold-light); }
+        .star:nth-child(5) { animation-delay: 1.2s; }
+        @keyframes twinkle { 0%,100%{opacity:0.3;transform:scale(1)} 50%{opacity:1;transform:scale(1.4)} }
 
         .game-header {
             display: flex;
@@ -248,7 +246,7 @@
         }
         .card {
             aspect-ratio: 1/1;
-            background: linear-gradient(145deg, var(--rose-light), #f5ddd8);
+            background: linear-gradient(145deg, var(--rose-light), #eeddc8);
             border-radius: 14px;
             display: flex;
             align-items: center;
@@ -257,20 +255,20 @@
             cursor: pointer;
             color: transparent;
             transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1);
-            border: 1.5px solid rgba(201,123,110,0.2);
+            border: 1.5px solid rgba(196,149,106,0.22);
             box-shadow: var(--shadow-sm);
             user-select: none;
         }
-        .card:hover { transform: scale(1.04); }
+        .card:hover { transform: scale(1.05); }
         .card.flipped {
             background: white;
             color: var(--rose-dark);
             border-color: var(--rose);
             transform: rotateY(180deg);
-            box-shadow: 0 4px 16px rgba(160,90,79,0.2);
+            box-shadow: 0 4px 16px rgba(139,98,69,0.2);
         }
         .card.matched {
-            background: linear-gradient(145deg, var(--gold-light), #f0e0b8);
+            background: linear-gradient(145deg, var(--gold-light), #ecd8a8);
             border-color: var(--gold);
             color: var(--gold-dark);
         }
@@ -295,7 +293,7 @@
             align-items: center;
             justify-content: center;
             padding: 14px;
-            box-shadow: 0 8px 24px rgba(160,90,79,0.28);
+            box-shadow: 0 8px 24px rgba(100,60,20,0.25);
             border: 2.5px solid rgba(255,255,255,0.7);
             transition: all 0.55s cubic-bezier(0.34,1.56,0.64,1);
             cursor: pointer;
@@ -304,14 +302,14 @@
         }
         .menu-card .mc-icon { font-size: 26px; }
         .menu-card b { font-size: 13px; letter-spacing: 0.02em; font-family: 'DM Sans', sans-serif; }
-        .c1 { transform: translateX(-92px) rotate(-14deg); z-index: 1; background: linear-gradient(150deg, #c97b6e 0%, #a05a4f 100%); }
-        .c2 { transform: translateX(-32px) rotate(-5deg); z-index: 2; background: linear-gradient(150deg, #c9a96e 0%, #9a7840 100%); }
-        .c3 { transform: translateX(32px) rotate(5deg); z-index: 3; background: linear-gradient(150deg, #c97b6e 0%, #a05a4f 100%); }
-        .c4 { transform: translateX(92px) rotate(14deg); z-index: 4; background: linear-gradient(150deg, #b06880 0%, #8a4560 100%); }
+        .c1 { transform: translateX(-92px) rotate(-14deg); z-index: 1; background: linear-gradient(150deg, #c4956a 0%, #8b6245 100%); }
+        .c2 { transform: translateX(-32px) rotate(-5deg); z-index: 2; background: linear-gradient(150deg, #d4a96a 0%, #8a6835 100%); }
+        .c3 { transform: translateX(32px) rotate(5deg); z-index: 3; background: linear-gradient(150deg, #b8825a 0%, #7a5235 100%); }
+        .c4 { transform: translateX(92px) rotate(14deg); z-index: 4; background: linear-gradient(150deg, #a07050 0%, #6b4530 100%); }
         .menu-card.focused {
             transform: translate(0, -40px) scale(1.28) rotate(0deg) !important;
             z-index: 100 !important;
-            box-shadow: 0 20px 40px rgba(80,30,20,0.3) !important;
+            box-shadow: 0 20px 40px rgba(60,30,10,0.3) !important;
         }
         .menu-hint {
             font-size: 11px;
@@ -327,7 +325,7 @@
             object-fit: cover;
             border-radius: 18px;
             border: 4px solid white;
-            box-shadow: 0 6px 20px rgba(80,40,20,0.12);
+            box-shadow: 0 6px 20px rgba(60,30,10,0.14);
             margin-bottom: 14px;
         }
         .message-box {
@@ -336,12 +334,13 @@
             border-radius: 16px;
             padding: 14px 16px;
             font-size: 12.5px;
-            line-height: 1.7;
+            line-height: 1.75;
             color: var(--brown-light);
             text-align: left;
             font-style: italic;
             min-height: 80px;
             position: relative;
+            cursor: pointer;
         }
         .message-box::before {
             content: '"';
@@ -352,13 +351,25 @@
             top: -8px; left: 8px;
             line-height: 1;
         }
+        .msg-text { position: relative; z-index: 1; padding-left: 24px; }
+        .skip-hint {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-align: right;
+            margin-top: 6px;
+            font-style: normal;
+            opacity: 0.7;
+            display: none;
+        }
+        .skip-hint.visible { display: block; }
 
         .special-card {
-            background: linear-gradient(135deg, #fff5f0 0%, #fef8ee 100%);
+            background: linear-gradient(135deg, #fffaf4 0%, #fef4e4 100%);
             border: 2px dashed var(--rose-light);
             border-radius: 20px;
-            padding: 22px 18px;
-            margin: 14px 0;
+            padding: 20px 16px;
+            margin: 12px 0;
+            text-align: left;
         }
         .special-grid {
             display: grid;
@@ -381,16 +392,12 @@
         .special-item .si-label { font-size: 10px; color: var(--text-muted); display: block; margin-bottom: 3px; }
         .special-item .si-val { font-weight: 500; font-size: 13px; color: var(--rose-dark); }
 
-        .wish-list {
-            list-style: none;
-            text-align: left;
-            margin: 12px 0;
-        }
+        .wish-list { list-style: none; margin: 10px 0; }
         .wish-list li {
             padding: 9px 12px;
             font-size: 12.5px;
             color: var(--brown);
-            border-bottom: 1px solid rgba(201,123,110,0.12);
+            border-bottom: 1px solid rgba(196,149,106,0.13);
             display: flex;
             align-items: flex-start;
             gap: 8px;
@@ -413,10 +420,10 @@
 
         .big-quote {
             font-family: 'Playfair Display', serif;
-            font-size: 1rem;
+            font-size: 0.97rem;
             font-style: italic;
             color: var(--rose-dark);
-            line-height: 1.6;
+            line-height: 1.65;
             padding: 14px 18px;
             background: white;
             border-left: 3px solid var(--rose);
@@ -425,17 +432,61 @@
             margin: 12px 0;
         }
 
+        .countdown-box {
+            background: white;
+            border: 1.5px solid var(--rose-light);
+            border-radius: 16px;
+            padding: 14px;
+            margin: 10px 0;
+            display: flex;
+            justify-content: center;
+            gap: 12px;
+        }
+        .cd-item { text-align: center; min-width: 52px; }
+        .cd-num {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.7rem;
+            font-weight: 700;
+            color: var(--rose-dark);
+            line-height: 1;
+        }
+        .cd-label {
+            font-size: 9px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            margin-top: 3px;
+        }
+        .cd-sep {
+            font-size: 1.4rem;
+            color: var(--rose-light);
+            align-self: center;
+            padding-bottom: 8px;
+        }
+
+        .memory-tag {
+            background: var(--warm);
+            border: 1px solid var(--rose-light);
+            border-radius: 20px;
+            padding: 5px 12px;
+            font-size: 11.5px;
+            color: var(--brown);
+            white-space: nowrap;
+        }
+
+        .scroll-inner {
+            max-height: 380px;
+            overflow-y: auto;
+            padding-right: 2px;
+        }
+        .scroll-inner::-webkit-scrollbar { width: 4px; }
+        .scroll-inner::-webkit-scrollbar-thumb { background: var(--rose-light); border-radius: 4px; }
+
         .page { animation: fadeIn 0.4s ease; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
-
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
-    <div class="petal"></div>
 
     <div id="music-ctrl" onclick="toggleMusic()">
         <span id="mu-icon">🎵</span>
@@ -450,14 +501,19 @@
 
         <!-- PAGE 1: LOGIN -->
         <div id="page1" class="page">
-            <span class="lock-icon">🌸</span>
+            <span class="main-icon">🤎</span>
             <h1>Halo Tiara ✨</h1>
+            <div class="stars">
+                <div class="star"></div><div class="star"></div><div class="star"></div>
+                <div class="star"></div><div class="star"></div>
+            </div>
             <div class="divider"></div>
             <p class="sub">Masukkan password ulang tahun<br>sang pembuat untuk membuka</p>
             <input type="password" id="pass" placeholder="Password (DDMMYYYY)" onkeydown="if(event.key==='Enter')login()">
             <button class="btn btn-primary" onclick="login()" style="margin-top:10px;width:100%">
                 🔓 Buka Halaman
             </button>
+            <p style="font-size:10px;color:var(--text-muted);margin-top:14px;font-style:italic">dibuat dengan 🤎 khusus buat kamu</p>
         </div>
 
         <!-- PAGE GAME -->
@@ -469,14 +525,14 @@
             <p class="sub" style="text-align:left;margin-bottom:0">Cocokkan 3 pasang gambar untuk lanjut!</p>
             <div class="grid" id="game-board"></div>
             <button class="btn btn-skip" onclick="skipGame()" style="width:100%;margin-top:4px">
-                ↩ Skip mini game
+                ↩ Lewati mini game
             </button>
         </div>
 
         <!-- DECK MENU -->
         <div id="deck-menu" class="page hidden">
             <h2>Main Menu 💌</h2>
-            <p class="menu-hint">Klik kartu, lalu klik lagi untuk masuk</p>
+            <p class="menu-hint">Klik kartu → klik lagi untuk masuk</p>
             <div class="deck-container">
                 <div class="menu-card c1" onclick="handleCardClick(this, 'page-content1')">
                     <span class="mc-icon">📖</span>
@@ -519,8 +575,9 @@
             <h1>Ceritaku</h1>
             <div class="divider"></div>
             <img src="foto1.jpeg" class="photo-frame" onerror="this.style.display='none'">
-            <div class="message-box">
-                <p id="type1" style="position:relative;z-index:1;padding-left:24px"></p>
+            <div class="message-box" onclick="skipTyping('type1')">
+                <p id="type1" class="msg-text"></p>
+                <p id="skip-hint1" class="skip-hint">ketuk untuk skip ⚡</p>
             </div>
             <div class="btn-group">
                 <button class="btn btn-secondary" onclick="backToMenu('page-content1')">🏠 Menu</button>
@@ -533,8 +590,9 @@
             <h1>Pesan Untukmu</h1>
             <div class="divider"></div>
             <img src="foto2.jpeg" class="photo-frame" onerror="this.style.display='none'">
-            <div class="message-box">
-                <p id="type2" style="position:relative;z-index:1;padding-left:24px"></p>
+            <div class="message-box" onclick="skipTyping('type2')">
+                <p id="type2" class="msg-text"></p>
+                <p id="skip-hint2" class="skip-hint">ketuk untuk skip ⚡</p>
             </div>
             <div class="btn-group">
                 <button class="btn btn-secondary" onclick="nav('page-content2','page-content1')">← Back</button>
@@ -548,8 +606,9 @@
             <h1>Wall of Fame</h1>
             <div class="divider"></div>
             <img src="foto3.jpeg" class="photo-frame" onerror="this.style.display='none'">
-            <div class="message-box">
-                <p id="type3" style="position:relative;z-index:1;padding-left:24px"></p>
+            <div class="message-box" onclick="skipTyping('type3')">
+                <p id="type3" class="msg-text"></p>
+                <p id="skip-hint3" class="skip-hint">ketuk untuk skip ⚡</p>
             </div>
             <div class="btn-group">
                 <button class="btn btn-secondary" onclick="nav('page-content3','page-content2')">← Back</button>
@@ -564,49 +623,75 @@
             <h1>Hanya Untuk Tiara</h1>
             <div class="divider"></div>
 
-            <div class="big-quote">
-                "Kamu mungkin nggak tau betapa besar pengaruh kamu buat aku. Makasih udah ada di cerita kelas 9 ini."
+            <div class="scroll-inner">
+                <div class="big-quote">
+                    "Kamu mungkin nggak tau betapa besar pengaruh kamu buat aku. Makasih udah ada di cerita kelas 9 ini."
+                </div>
+
+                <div style="margin:14px 0 6px">
+                    <p style="font-size:11.5px;color:var(--brown);font-weight:500;text-align:left">🎓 Countdown ke SMA/SMK</p>
+                </div>
+                <div class="countdown-box" id="countdown-box">
+                    <div class="cd-item"><div class="cd-num" id="cd-d">--</div><div class="cd-label">Hari</div></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-item"><div class="cd-num" id="cd-h">--</div><div class="cd-label">Jam</div></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-item"><div class="cd-num" id="cd-m">--</div><div class="cd-label">Menit</div></div>
+                    <div class="cd-sep">:</div>
+                    <div class="cd-item"><div class="cd-num" id="cd-s">--</div><div class="cd-label">Detik</div></div>
+                </div>
+                <p style="font-size:10px;color:var(--text-muted);text-align:center;margin-bottom:12px;font-style:italic">menuju hari pertama masuk SMA/SMK (14 Juli 2025)</p>
+
+                <div class="special-grid">
+                    <div class="special-item">
+                        <span class="si-icon">🗓️</span>
+                        <span class="si-label">Mulai kenal</span>
+                        <span class="si-val">Kelas 8</span>
+                    </div>
+                    <div class="special-item">
+                        <span class="si-icon">🏆</span>
+                        <span class="si-label">Pencapaianmu</span>
+                        <span class="si-val">Juara 1!</span>
+                    </div>
+                    <div class="special-item">
+                        <span class="si-icon">🎵</span>
+                        <span class="si-label">Suaramu</span>
+                        <span class="si-val">Keren banget</span>
+                    </div>
+                    <div class="special-item">
+                        <span class="si-icon">🎨</span>
+                        <span class="si-label">Lukisanmu</span>
+                        <span class="si-val">Bagus parah</span>
+                    </div>
+                </div>
+
+                <p style="font-size:11.5px;color:var(--brown);font-weight:500;text-align:left;margin-bottom:6px">📌 Momen yang nggak terlupain</p>
+                <div style="display:flex;flex-wrap:wrap;gap:7px;margin-bottom:14px">
+                    <span class="memory-tag">🎤 Nyanyi bareng</span>
+                    <span class="memory-tag">📚 Jadi ketertiban</span>
+                    <span class="memory-tag">🏅 Juara kelas</span>
+                    <span class="memory-tag">🎨 Lihat lukisanmu</span>
+                    <span class="memory-tag">😄 Momen kerkel</span>
+                    <span class="memory-tag">📖 Cerita ke ortu</span>
+                </div>
+
+                <div class="special-card">
+                    <p style="font-size:12px;color:var(--brown);font-weight:500;margin-bottom:10px">Doa & Harapan Untukmu 🌸</p>
+                    <ul class="wish-list">
+                        <li><span class="wish-icon">🌟</span> Semoga SMA/SMK-nya lancar, nemuin temen-temen yang keren, dan makin pede!</li>
+                        <li><span class="wish-icon">🎤</span> Suaramu makin keren, semoga ada panggung yang lebih besar nunggu kamu!</li>
+                        <li><span class="wish-icon">🎨</span> Lukisanmu suatu hari pasti dipajang di tempat yang layak.</li>
+                        <li><span class="wish-icon">💪</span> Jangan pernah berhenti complain less & do more ya, kamu bisa!</li>
+                        <li><span class="wish-icon">🌸</span> Yang paling penting: bahagia selalu, Tir. Itu cukup.</li>
+                    </ul>
+                </div>
+
+                <p style="font-size:11px;color:var(--text-muted);font-style:italic;margin:10px 0 4px;text-align:center">
+                    — Dari orang yang diam-diam banyak belajar dari kamu 🤎
+                </p>
             </div>
 
-            <div class="special-grid">
-                <div class="special-item">
-                    <span class="si-icon">🗓️</span>
-                    <span class="si-label">Mulai kenal</span>
-                    <span class="si-val">Kelas 8</span>
-                </div>
-                <div class="special-item">
-                    <span class="si-icon">🏆</span>
-                    <span class="si-label">Pencapaianmu</span>
-                    <span class="si-val">Juara 1!</span>
-                </div>
-                <div class="special-item">
-                    <span class="si-icon">🎵</span>
-                    <span class="si-label">Suaramu</span>
-                    <span class="si-val">Keren banget</span>
-                </div>
-                <div class="special-item">
-                    <span class="si-icon">🎨</span>
-                    <span class="si-label">Lukisanmu</span>
-                    <span class="si-val">Bagus parah</span>
-                </div>
-            </div>
-
-            <div class="special-card">
-                <p style="font-size:12px;color:var(--brown);font-weight:500;margin-bottom:10px">Doa & Harapan Untukmu 🌸</p>
-                <ul class="wish-list">
-                    <li><span class="wish-icon">🌟</span> Semoga SMA/SMK-nya lancar, nemuin temen-temen yang keren, dan makin pede!</li>
-                    <li><span class="wish-icon">🎤</span> Suaramu makin keren, semoga ada panggung yang lebih besar nunggu kamu!</li>
-                    <li><span class="wish-icon">🎨</span> Lukisanmu suatu hari pasti dipajang di tempat yang layak.</li>
-                    <li><span class="wish-icon">💪</span> Jangan pernah berhenti complain less & do more ya, kamu bisa!</li>
-                    <li><span class="wish-icon">🌸</span> Yang paling penting: bahagia selalu, Tir. Itu cukup.</li>
-                </ul>
-            </div>
-
-            <p style="font-size:11px;color:var(--text-muted);font-style:italic;margin:8px 0">
-                — Dari orang yang diam-diam banyak belajar dari kamu 🤍
-            </p>
-
-            <button class="btn btn-gold" style="margin-top:12px;width:100%" onclick="backToMenu('page-special-content')">
+            <button class="btn btn-gold" style="margin-top:14px;width:100%" onclick="backToMenu('page-special-content')">
                 🏠 Kembali ke Menu
             </button>
         </div>
@@ -618,12 +703,38 @@
         const PASS_SPECIAL = "0662026";
         const music = document.getElementById('bgMusic');
         let typeTimeouts = [];
+        let currentTypingId = null;
+        let currentFullText = null;
+        let isTypingDone = false;
 
         const texts = {
             type1: "TIRRRR, ALOOOO kamu pasti liat ini kan mwhehwhe — selain kamu gada yg bisa liat. Jujur aku baru memperhatiin kamu saat kelas 8 atau kelas 9? Pokoknya saat aku dan kamu jadi ketertiban. Ya sampe sekarang masih ada rasa (bukan rasa aceh ya, mie pula nanti jadinya). Satu-satunya temen perempuan yang ku ceritain ke orang tua ku, kamu doang. Nyanyi enak, kalo kerkel ya enak, tapi yang penting ilangin rasa gapede yak. Di kelas 9 ini yang jadi motivasiku untuk berubah ya kamu — kayak nilai mu lebih tinggi dari aku, itu bikin aku berusaha lebih. Sama lukisan mu itu bagus banget, tutor dong hehe. Yaa gitu, makasih dah mau baca, next aja yak 🌸",
             type2: "Ingat ya Tir, kalau nanti di SMA/SMK kamu ngerasa capek atau ngerasa nggak pede lagi, inget aja aku — karena aku SELALU pede yaps 😂. Tapi semenjak kamu juara 1, ada perubahan yang aku lihat. Yang penting: do it and complain less. Kamu udah buktiin kamu bisa, tinggal percaya aja sama diri sendiri. 💪",
             type3: "Makasih ya udah mau nemenin masa-masa kelas 9 jadi lebih indah dan berasa. Sukses di SMA/SMK nanti, jangan lupain kenangan kita — dan jangan lupain aku juga dong. OKEEEE???!! 🌸🎉"
         };
+
+        function updateCountdown() {
+            const target = new Date('2025-07-14T07:00:00');
+            const now = new Date();
+            const diff = target - now;
+            if (diff <= 0) {
+                document.getElementById('cd-d').textContent = '0';
+                document.getElementById('cd-h').textContent = '0';
+                document.getElementById('cd-m').textContent = '0';
+                document.getElementById('cd-s').textContent = '0';
+                return;
+            }
+            const d = Math.floor(diff / 86400000);
+            const h = Math.floor((diff % 86400000) / 3600000);
+            const m = Math.floor((diff % 3600000) / 60000);
+            const s = Math.floor((diff % 60000) / 1000);
+            document.getElementById('cd-d').textContent = String(d).padStart(2,'0');
+            document.getElementById('cd-h').textContent = String(h).padStart(2,'0');
+            document.getElementById('cd-m').textContent = String(m).padStart(2,'0');
+            document.getElementById('cd-s').textContent = String(s).padStart(2,'0');
+        }
+        setInterval(updateCountdown, 1000);
+        updateCountdown();
 
         function toggleMusic() {
             if (music.paused) { music.play(); document.getElementById('mu-icon').textContent = '🎵'; }
@@ -637,12 +748,15 @@
                 transition('page1', 'page-game');
                 initGame();
             } else {
-                document.getElementById('pass').style.borderColor = 'var(--rose-dark)';
-                document.getElementById('pass').style.background = '#fff0ee';
+                const inp = document.getElementById('pass');
+                inp.style.borderColor = 'var(--rose-dark)';
+                inp.style.background = '#fff5ee';
+                inp.placeholder = 'Password salah, coba lagi...';
                 setTimeout(() => {
-                    document.getElementById('pass').style.borderColor = '';
-                    document.getElementById('pass').style.background = '';
-                }, 1500);
+                    inp.style.borderColor = '';
+                    inp.style.background = '';
+                    inp.placeholder = 'Password (DDMMYYYY)';
+                }, 1600);
             }
         }
 
@@ -651,7 +765,7 @@
             if (input === PASS_SPECIAL) {
                 document.getElementById('errorSpecial').classList.add('hidden');
                 transition('page-special-pass', 'page-special-content');
-                confetti({ particleCount: 120, spread: 80, origin: { y: 0.6 }, colors: ['#c97b6e','#c9a96e','#f0cbc5','#f5e6cc','#fff'] });
+                confetti({ particleCount: 130, spread: 85, origin: { y: 0.6 }, colors: ['#c4956a','#d4a96a','#eddcca','#f0e0c4','#fff'] });
             } else {
                 document.getElementById('errorSpecial').classList.remove('hidden');
             }
@@ -673,9 +787,21 @@
         }
 
         function startTyping(pageId) {
-            if (pageId === 'page-content1') setTimeout(() => typeWriter('type1', texts.type1), 500);
-            if (pageId === 'page-content2') setTimeout(() => typeWriter('type2', texts.type2), 500);
-            if (pageId === 'page-content3') setTimeout(() => typeWriter('type3', texts.type3), 500);
+            const map = { 'page-content1': 'type1', 'page-content2': 'type2', 'page-content3': 'type3' };
+            const key = map[pageId];
+            if (!key) return;
+            setTimeout(() => typeWriter(key, texts[key]), 500);
+        }
+
+        function skipTyping(elementId) {
+            if (!isTypingDone && currentTypingId === elementId) {
+                typeTimeouts.forEach(clearTimeout);
+                typeTimeouts = [];
+                document.getElementById(elementId).innerHTML = currentFullText;
+                const num = elementId.replace('type','');
+                document.getElementById('skip-hint' + num).classList.remove('visible');
+                isTypingDone = true;
+            }
         }
 
         function transition(oldId, nextId) {
@@ -688,8 +814,13 @@
             document.querySelectorAll('.menu-card').forEach(c => c.classList.remove('focused'));
             typeTimeouts.forEach(clearTimeout);
             typeTimeouts = [];
+            currentTypingId = null;
+            currentFullText = null;
             document.getElementById('passSpecialInput').value = '';
             document.getElementById('errorSpecial').classList.add('hidden');
+            ['skip-hint1','skip-hint2','skip-hint3'].forEach(id => {
+                document.getElementById(id).classList.remove('visible');
+            });
         }
 
         function typeWriter(elementId, text) {
@@ -698,11 +829,21 @@
             element.innerHTML = '';
             typeTimeouts.forEach(clearTimeout);
             typeTimeouts = [];
+            currentTypingId = elementId;
+            currentFullText = text;
+            isTypingDone = false;
+            const num = elementId.replace('type','');
+            const hint = document.getElementById('skip-hint' + num);
+            const hintTimeout = setTimeout(() => { if (!isTypingDone) hint.classList.add('visible'); }, 1000);
+            typeTimeouts.push(hintTimeout);
             function type() {
                 if (i < text.length) {
                     element.innerHTML += text.charAt(i);
                     i++;
-                    typeTimeouts.push(setTimeout(type, 22));
+                    typeTimeouts.push(setTimeout(type, 20));
+                } else {
+                    hint.classList.remove('visible');
+                    isTypingDone = true;
                 }
             }
             type();
@@ -717,7 +858,7 @@
         function initGame() {
             matchedCount = 0;
             updateMatchCount();
-            const items = ['🌸', '🎤', '💫', '🌸', '🎤', '💫'];
+            const items = ['🌰', '🍂', '☕', '🌰', '🍂', '☕'];
             const board = document.getElementById('game-board');
             let flipped = [];
             board.innerHTML = '';
@@ -737,7 +878,7 @@
                                     matchedCount++;
                                     updateMatchCount();
                                     if (matchedCount === 3) {
-                                        confetti({ particleCount: 80, spread: 60, origin: { y: 0.5 }, colors: ['#c97b6e','#c9a96e','#f0cbc5'] });
+                                        confetti({ particleCount: 80, spread: 60, origin: { y: 0.5 }, colors: ['#c4956a','#d4a96a','#eddcca'] });
                                         setTimeout(() => transition('page-game', 'deck-menu'), 1200);
                                     }
                                 } else {
